@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitespeed Task | Identity Reconciliation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #020617;
+            --accent-1: #0ea5e9; /* Sky Blue */
+            --accent-2: #d946ef; /* Fuchsia */
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* --- BACKGROUND ANIMATIONS --- */
+
+        /* Moving Gradient Mesh */
+        .bg-mesh {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(at 0% 0%, rgba(14, 165, 233, 0.15) 0, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(217, 70, 239, 0.15) 0, transparent 50%);
+            z-index: -2;
+            animation: meshMove 10s ease-in-out infinite alternate;
+        }
+
+        @keyframes meshMove {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 1000%;
+            z-index: -1;
+        }
+
+        .dot {
+            position: absolute;
+            background: white;
+            border-radius: 99%;
+            opacity: 0.9;
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            50% { opacity: 0.5; }
+            100% { transform: translateY(-100vh) translateX(20vw); opacity: 0; }
+        }
+
+        /* --- CONTENT STYLES --- */
+
+        .container {
+            text-align: center;
+            z-index: 10;
+            padding: 20px;
+        }
+
+        .subtitle {
+            font-size: clamp(0.9rem, 3vw, 1.4rem);
+            color: var(--accent-1);
+            font-weight: 700;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        h1 {
+            font-size: clamp(3.5rem, 12vw, 6.5rem);
+            font-weight: 900;
+            line-height: 0.9;
+            letter-spacing: -4px;
+            margin-bottom: 30px;
+            background: linear-gradient(to bottom right, #fff 30%, var(--text-muted));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .author-box {
+            margin-bottom: 80px;
+        }
+
+        .author-name {
+            font-size: clamp(3.5rem, 5vw, 2.2rem);
+            font-weight: 300;
+            color: #fff;
+        }
+
+        .author-name strong {
+            font-weight: 800;
+            color: var(--accent-2);
+        }
+
+        /* Links & Buttons */
+        .links {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+        }
+
+        .btn {
+            text-decoration: none;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .btn i {
+            font-size: 3.5rem;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .btn span {
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .btn:hover i {
+            color: var(--accent-1);
+            transform: translateY(-8px) scale(1.1);
+        }
+
+        .btn:hover span {
+            color: #fff;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            .links { gap: 30px; }
+            h1 { letter-spacing: -2px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-mesh"></div>
+    <div class="particles" id="particle-container"></div>
+
+    <div class="container">
+        <span class="subtitle">Bitespeed Backend Task</span>
+        <h1>Identity<br>Reconciliation</h1>
+
+        <div class="author-box">
+            <p class="author-name">by <strong>Harshini Karumanchi</strong></p>
+        </div>
+
+        <div class="links">
+            <a href="https://www.linkedin.com/in/harshini-karumanchi/" target="_blank" class="btn">
+                <i class="fa-brands fa-linkedin"></i>
+                <span>LinkedIn</span>
+            </a>
+            <a href="https://github.com/harshini1114" target="_blank" class="btn">
+                <i class="fa-brands fa-github"></i>
+                <span>GitHub</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Simple script to generate floating particles
+        const container = document.getElementById('particle-container');
+        for (let i = 0; i < 30; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'dot';
+            const size = Math.random() * 4 + 1 + 'px';
+            dot.style.width = size;
+            dot.style.height = size;
+            dot.style.left = Math.random() * 100 + 'vw';
+            dot.style.top = Math.random() * 100 + 'vh';
+            dot.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            dot.style.animationDelay = Math.random() * 5 + 's';
+            container.appendChild(dot);
+        }
+    </script>
+
+</body>
+</html>
