@@ -15,8 +15,8 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 sqldb.init_app(app)
 with app.app_context():
+    sqldb.drop_all()
     sqldb.create_all()
-print("SQLite Database initialized.")
 
 
 @app.route("/favicon.ico")
