@@ -10,6 +10,14 @@ from contact import sqldb
 
 app = flask.Flask(__name__)
 
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+sqldb.init_app(app)
+with app.app_context():
+    sqldb.create_all()
+print("SQLite Database initialized.")
+
 
 @app.route("/favicon.ico")
 def favicon():
@@ -89,12 +97,4 @@ def reset():
 
 
 if __name__ == "__main__":
-
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
-    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
-    sqldb.init_app(app)
-    with app.app_context():
-        sqldb.create_all()
-    print("SQLite Database initialized.")
     app.run(debug=True, port=5000)
